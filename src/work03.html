@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<script src="//cdn.jsdelivr.net/npm/phaser@3.18.0/dist/phaser.js"></script>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+}
+html, body {
+    height: 100%;
+    overflow: hidden;
+}
+</style>
+<script>
+const mainScene = new Phaser.Scene('MainScene');
+
+mainScene.preload = function() {
+    // スプライト画像の読み込み
+    this.load.spritesheet('jets', 'assets/images/jets.png', {frameWidth: 64, frameHeight: 64});
+};
+
+mainScene.create = function() {
+    // コンテナ作成
+    this.createContainer();
+    // ジェット機の作成
+    this.createJets();
+};
+
+mainScene.update = function() {
+    const cursors = this.input.keyboard.createCursorKeys();
+    if(cursors.right.isDown) {
+        // 右に移動
+        this.player.x += this.player.dx;
+        // 右向きのフレーム
+        this.jets1.setFrame(2);
+        this.jets2.setFrame(2);
+        this.jets3.setFrame(2);
+    }
+    if(cursors.left.isDown) {
+        // 左に移動
+        this.player.x -= this.player.dx;
+        // 左向きのフレーム
+        this.jets1.setFrame(0);
+        this.jets2.setFrame(0);
+        this.jets3.setFrame(0);
+    }
+    if(cursors.up.isDown) {
+        // 上に移動
+        this.player.y -= this.player.dy;
+    }
+    if(cursors.down.isDown) {
+        // 下に移動
+        this.player.y += this.player.dy;
+    }
+};
+
+mainScene.createContainer = function() {
+    // 画面中央のX座標
+    const x = this.game.config.width / 2;
+    // 画面中央のY座標
+    const y = this.game.config.height / 2;
+    // 画像オブジェクトを保持するコンテナを作成して、プレイヤーにする
+    this.player = this.add.container(x, y);
+    // 左右の移動量
+    this.player.dx = 5;
+    // 上下の移動量
+    this.player.dy = 5;
+};
+
+
+mainScene.createJets = function() {
+    // 中央のジェット機　座標はコンテナからの相対位置
+    this.jets1 = this.add.sprite(0, 0, 'jets');
+    this.jets1.setDisplaySize(50,50);
+    this.jets1.setFrame(1);
+    
+    // 右側のジェット機　座標はコンテナからの相対位置
+    this.jets2 = this.add.sprite(100,0, 'jets');
+    this.jets2.setDisplaySize(50,50);
+    this.jets2.setFrame(1);
+
+    // 左側のジェット機　座標はコンテナからの相対位置
+    this.jets3 = this.add.sprite(-100, 0, 'jets');
+    this.jets3.setDisplaySize(50,50);
+    this.jets3.setFrame(1);
+    
+    // プレイヤーを意味するコンテナに追加
+    this.player.add(this.jets1);
+    this.player.add(this.jets2);
+    this.player.add(this.jets3);
+    
+    this.input.keyboard.on('keyup', function(event) {
+        this.jets1.setFrame(1);
+        this.jets2.setFrame(1);
+        this.jets3.setFrame(1);
+    }, this);
+};
+
+
+const config = {
+    type: Phaser.AUTO,
+    width: window.innerWidth,
+    height: window.innerHeight,
+    backgroundColor: '#c1c1c1',
+    scene: [mainScene],
+};
+
+const game = new Phaser.Game(config);
+
+window.addEventListener("resize", (event) => {
+    game.scale.resize(window.innerWidth, window.innerHeight);
+},false);
+</script>
+</head>
+<body>
+</body>
+</html>
