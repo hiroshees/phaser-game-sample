@@ -4,39 +4,43 @@
 <meta charset="UTF-8">
 <script src="//cdn.jsdelivr.net/npm/phaser@3.17.0/dist/phaser.js"></script>
 <style>
-body {
-  margin: 0;
+* {
+    margin: 0;
+    padding: 0;
+}
+html, body {
+    height: 100%;
+    overflow: hidden;
 }
 </style>
 <script>
-var mainScene = new Phaser.Scene('MainScene');
+const mainScene = new Phaser.Scene('MainScene');
 
-mainScene.load = function() {
-    
+mainScene.preload = function() {
+    this.load.image('star', 'assets/images/star.png');
 };
 
 mainScene.create = function() {
-    
+    const starImage = this.add.image(100, 100, 'star');
 };
 
 mainScene.update = function() {
     
 };
 
-var config = {
+const config = {
     type: Phaser.AUTO,
-    width: 800,
-    height: 600,
-    physics: {
-        default: 'arcade',
-        arcade: {
-            gravity: {y: 500},
-            debug: true,
-        }
-    },
+    width: window.innerWidth,
+    height: window.innerHeight,
+    backgroundColor: '#c1c1c1',
     scene: [mainScene],
 };
-var game = new Phaser.Game(config);
+
+const game = new Phaser.Game(config);
+
+window.addEventListener("resize", (event) => {
+    game.scale.resize(window.innerWidth, window.innerHeight);
+},false);
 </script>
 </head>
 <body>
