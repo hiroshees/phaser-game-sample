@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<script src="//cdn.jsdelivr.net/npm/phaser@3.18.0/dist/phaser.js"></script>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+}
+html, body {
+    height: 100%;
+    overflow: hidden;
+}
+</style>
+<script>
+const mainScene = new Phaser.Scene('MainScene');
+
+mainScene.preload = function() {
+    this.load.image('star', 'assets/images/star.png');
+};
+
+mainScene.create = function() {
+    // 画面中央のX座標
+    const x = this.game.config.width / 2;
+    // 画面中央のY座標
+    const y = this.game.config.height / 2;
+    // 画面中央に配置
+    this.starImage = this.add.image(x, y, 'star');
+    this.starImage.setDisplaySize(100, 100);
+    // X方向の移動量
+    this.starImage.dx = 10;
+};
+
+mainScene.update = function() {
+    // 画面幅
+    const width = this.game.config.width;
+    // 右端の判定
+    if(this.starImage.getRightCenter().x > width) {
+        this.starImage.dx *= -1;
+    }
+    // 左端の判定
+    if(this.starImage.getLeftCenter().x < 0) {
+        this.starImage.dx *= -1;
+    }
+    // 移動処理
+    this.starImage.x += this.starImage.dx;
+};
+
+const config = {
+    type: Phaser.AUTO,
+    width: window.innerWidth,
+    height: window.innerHeight,
+    backgroundColor: '#c1c1c1',
+    scene: [mainScene],
+};
+
+const game = new Phaser.Game(config);
+
+window.addEventListener("resize", (event) => {
+    game.scale.resize(window.innerWidth, window.innerHeight);
+},false);
+</script>
+</head>
+<body>
+</body>
+</html>
