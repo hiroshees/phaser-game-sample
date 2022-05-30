@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<script src="//cdn.jsdelivr.net/npm/phaser@3.18.0/dist/phaser.js"></script>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+}
+html, body {
+    height: 100%;
+    overflow: hidden;
+}
+</style>
+<script>
+const mainScene = new Phaser.Scene('MainScene');
+
+mainScene.preload = function() {
+    // スプライト画像の読み込み
+    this.load.spritesheet('jets', 'assets/images/jets.png', {frameWidth: 64, frameHeight: 64});
+};
+
+mainScene.create = function() {
+    // 移動座標を保持する配列のインデックス
+    this.index = 0;
+    // 移動座標を保持する配列のサイズ
+    this.positionsArraySize = 30;
+    // 追跡用のオブジェクトのずれ
+    this.delay = 15;
+    // 移動用座標を保持する配列
+    this.positions = Array(this.positionsArraySize).fill([]);
+    
+    this.createJets();
+    this.createFollowerJets();
+};
+
+mainScene.update = function () {
+    const cursors = this.input.keyboard.createCursorKeys();
+    if(cursors.right.isDown) {
+        // 右に移動
+        this.player.x += this.player.dx;
+        // 右向きのフレーム
+        this.player.setFrame(2);
+    }
+    if(cursors.left.isDown) {
+        // 左に移動
+        this.player.x -= this.player.dx;
+        // 左向きのフレーム
+        this.player.setFrame(0);
+    }
+    if(cursors.up.isDown) {
+        // 上に移動
+        this.player.y -= this.player.dy;
+    }
+    if(cursors.down.isDown) {
+        // 下に移動
+        this.player.y += this.player.dy;
+    }
+
+    // プレイヤーの現在座標を移動座標の配列に追加
+    const x = this.player.x;
+    const y = this.player.y;
+    this.positions[this.index] = [x, y];
+
+    // インデックスの操作    
+    this.index += 1;
+    if (this.index >= this.positionsArraySize) {
+        this.index = 0;
+    }
+    
+    // 移動座標の配列に基づいて、座標を移動させる
+    const children = this.followerGroup.getChildren();
+    for (let i=0; i < this.followerGroup.getLength(); i++) {
+        let idx = this.index + ((i+1) * this.delay);
+        idx = idx % this.positionsArraySize;
+        
+        children[i].x = this.positions[idx][0];
+        children[i].y = this.positions[idx][1];
+    }
+};
+
+mainScene.createJets = function() {
+    // プレイヤー画像作成
+    const x = this.game.config.width / 2;
+    const y = this.game.config.height / 2;
+    this.player = this.add.sprite(x, y, 'jets');
+    this.player.setDisplaySize(50,50);
+    this.player.setFrame(1);
+    this.player.dx = 5;
+    this.player.dy = 5;
+    
+    this.input.keyboard.on('keyup', function(event) {
+        this.player.setFrame(1);
+    }, this);
+};
+
+mainScene.createFollowerJets = function() {
+    // プレイヤーを追跡するグループ作成
+    this.followerGroup = this.add.group();
+    
+    const x = this.player.x;
+    const y = this.player.y;
+    
+    // プレイヤーを追跡するのは2体のジェット機作成
+    const jets2 = this.followerGroup.create(x, y,'jets',1);
+    jets2.setDisplaySize(50,50);
+    
+    const jets3 = this.followerGroup.create(x, y,'jets',1);
+    jets3.setDisplaySize(50,50);
+};
+
+const config = {
+    type: Phaser.AUTO,
+    width: window.innerWidth,
+    height: window.innerHeight,
+    backgroundColor: '#c1c1c1',
+    scene: [mainScene],
+};
+
+const game = new Phaser.Game(config);
+
+window.addEventListener("resize", (event) => {
+    game.scale.resize(window.innerWidth, window.innerHeight);
+},false);
+</script>
+</head>
+<body>
+</body>
+</html>
