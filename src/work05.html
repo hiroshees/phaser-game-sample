@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<script src="//cdn.jsdelivr.net/npm/phaser@3.18.0/dist/phaser.js"></script>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+}
+html, body {
+    height: 100%;
+    overflow: hidden;
+}
+</style>
+<script>
+const mainScene = new Phaser.Scene('MainScene');
+
+mainScene.preload = function() {
+    // スプライト画像の読み込み
+    this.load.spritesheet('jets', 'assets/images/jets.png', {frameWidth: 64, frameHeight: 64});
+};
+
+mainScene.create = function() {
+    // コンテナ作成
+    this.createContainer();
+    // ジェット機の作成
+    this.createJets();
+    // 子機の作成
+    this.createChildJets();
+};
+
+mainScene.update = function() {
+    const cursors = this.input.keyboard.createCursorKeys();
+    if(cursors.right.isDown) {
+        // 右に移動
+        this.player.x += this.player.dx;
+        // 右向きのフレーム
+        this.jets.setFrame(2);
+    }
+    if(cursors.left.isDown) {
+        // 左に移動
+        this.player.x -= this.player.dx;
+        // 左向きのフレーム
+        this.jets.setFrame(0);
+    }
+    if(cursors.up.isDown) {
+        // 上に移動
+        this.player.y -= this.player.dy;
+    }
+    if(cursors.down.isDown) {
+        // 下に移動
+        this.player.y += this.player.dy;
+    }
+    
+    // プレイやを意味するコンテナの回転角度を加算
+    // 時計回りに回転させる
+    this.player.angle += this.player.dangle;
+    this.player.setAngle(this.player.angle);
+    
+    // コンテナのゲームオブジェクトを取得
+    const jets = this.player.getAll();
+    // コンテナのゲームオブジェクトを反時計回りに回転させる
+    // これで正面を向いているようにみえる
+    jets.map(jet => jet.setAngle(360 - this.player.angle));
+};
+
+mainScene.createContainer = function() {
+    // 画面中央のX座標
+    const x = this.game.config.width / 2;
+    // 画面中央のY座標
+    const y = this.game.config.height / 2;
+    // 画像オブジェクトを保持するコンテナを作成して、プレイヤーにする
+    this.player = this.add.container(x, y);
+    // 左右の移動量
+    this.player.dx = 5;
+    // 上下の移動量
+    this.player.dy = 5;
+    // 回転角度
+    this.player.angle = 0;
+    // 回転量
+    this.player.dangle = 3;
+};
+
+mainScene.createJets = function() {
+    // 中央のジェット機　座標はコンテナからの相対位置
+    this.jets = this.add.sprite(0, 0, 'jets');
+    this.jets.setDisplaySize(50,50);
+    this.jets.setFrame(1);
+    
+    // プレイヤーを意味するコンテナに追加
+    this.player.add(this.jets);
+
+    this.input.keyboard.on('keyup', function(event) {
+        this.jets.setFrame(1);
+    }, this);
+};
+
+mainScene.createChildJets = function() {
+    // 子機の配置用データ
+    // 座標位置はコンテナ位置からの相対座標
+    const jetsData = [{
+        x: 100, y : 0,
+    },{
+        x: -100, y : 0,
+    },{
+        x: 0, y : 100,
+    },{
+        x: 0, y :-100,
+    }];
+    
+    // 子機を作成してプレイヤーを意味するコンテナに追加
+    jetsData.map(jets => {
+        const j = this.add.sprite(jets.x, jets.y, 'jets');
+        j.setDisplaySize(50,50);
+        j.setTint(0xff0000);
+        j.setFrame(1);
+        this.player.add(j);
+    });
+};
+
+const config = {
+    type: Phaser.AUTO,
+    width: window.innerWidth,
+    height: window.innerHeight,
+    backgroundColor: '#c1c1c1',
+    scene: [mainScene],
+};
+
+const game = new Phaser.Game(config);
+
+window.addEventListener("resize", (event) => {
+    game.scale.resize(window.innerWidth, window.innerHeight);
+},false);
+</script>
+</head>
+<body>
+</body>
+</html>
