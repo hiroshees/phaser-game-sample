@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<script src="//cdn.jsdelivr.net/npm/phaser@3.50.0/dist/phaser.js"></script>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+}
+html, body {
+    height: 100%;
+    overflow: hidden;
+}
+</style>
+<script>
+const mainScene = new Phaser.Scene('MainScene');
+
+mainScene.preload = function() {
+    // 背景画像の読み込み
+    this.load.image('background', 'assets/images/background02.jpg');
+    // スプライト画像の読み込み
+    this.load.spritesheet('jets', 'assets/images/jets.png', {frameWidth: 64, frameHeight: 64});
+};
+
+mainScene.create = function() {
+    // 背景画像
+    this.background = this.add.tileSprite(0,0, this.game.config.width, this.game.config.height, 'background');
+    this.background.setOrigin(0, 0);
+    
+    // 背景画像を覆いつくす四角形
+    const rect = new Phaser.Geom.Rectangle(0, 0, this.game.config.width, this.game.config.height);
+    const graphics = this.add.graphics();
+    // 四角形を透過する
+    graphics.fillStyle(0x000000, 0.8);
+    graphics.fillRectShape(rect);
+
+    // ジェット機の作成
+    this.createJets();
+    // プレイヤー用ライトの作成
+    this.createLight();
+    // その他のライト作成
+    this.createOtherLights();
+};
+
+mainScene.update = function() {
+    this.background.tilePositionY -= 1;
+    const cursors = this.input.keyboard.createCursorKeys();
+    if(cursors.right.isDown) {
+        // 右に移動
+        this.player.x += this.player.dx;
+        // 右向きのフレーム
+        this.player.setFrame(2);
+    }
+    if(cursors.left.isDown) {
+        // 左に移動
+        this.player.x -= this.player.dx;
+        // 左向きのフレーム
+        this.player.setFrame(0);
+    }
+    if(cursors.up.isDown) {
+        // 上に移動
+        this.player.y -= this.player.dy;
+    }
+    if(cursors.down.isDown) {
+        // 下に移動
+        this.player.y += this.player.dy;
+    }
+    this.light.x = this.player.x;
+    this.light.y = this.player.y;
+    
+    // 赤いライトの左右の移動
+    if(this.rLight.x > this.game.config.width || this.rLight.x < 0) {
+        this.rLight.dx *= -1;
+    }
+    this.rLight.x += this.rLight.dx;
+
+    // 緑のライトの全方向の移動
+    if(this.gLight.x > this.game.config.width || this.gLight.x < 0) {
+        this.gLight.dx *= -1;
+    }
+    if(this.gLight.y > this.game.config.height || this.gLight.y < 0) {
+        this.gLight.dy *= -1;
+    }
+    this.gLight.x += this.gLight.dx;
+    this.gLight.y += this.gLight.dy;
+
+};
+
+mainScene.createJets = function() {
+    // 画面中央のX座標
+    const x = this.game.config.width / 2;
+    // 画面中央のY座標
+    const y = this.game.config.height / 2;
+
+    // 中央のジェット機　座標はコンテナからの相対位置
+    this.player = this.add.sprite(x, y, 'jets');
+    this.player.setDisplaySize(50,50);
+    this.player.setFrame(1);
+    this.player.dx = 4;
+    this.player.dy = 4;
+    
+    this.input.keyboard.on('keyup', function(event) {
+        this.player.setFrame(1);
+    }, this);
+};
+
+mainScene.createLight = function () {
+    // 画面中央のX座標
+    const x = this.game.config.width / 2;
+    // 画面中央のY座標
+    const y = this.game.config.height / 2;
+    
+    // プレイヤー用ライト作成
+    this.light = this.add.pointlight(x, y, 0xffffff, 400, 0.8);
+    this.light.setAlpha(0.1);
+};
+
+mainScene.createOtherLights = function () {
+    // 赤いライト作成
+    this.rLight = this.add.pointlight(100, 100, 0xff0000, 200, 1).setAlpha(0.1);
+    this.rLight.dx = 10;
+    // 緑のライト作成
+    this.gLight = this.add.pointlight(100, 300, 0x00ff00, 200, 1).setAlpha(0.1);
+    this.gLight.dx = 10;
+    this.gLight.dy = 20;
+};
+
+const config = {
+    type: Phaser.AUTO,
+    width: window.innerWidth,
+    height: window.innerHeight,
+    backgroundColor: '#c1c1c1',
+    scene: [mainScene],
+};
+
+const game = new Phaser.Game(config);
+
+window.addEventListener("resize", (event) => {
+    game.scale.resize(window.innerWidth, window.innerHeight);
+},false);
+</script>
+</head>
+<body>
+</body>
+</html>
