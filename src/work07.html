@@ -75,7 +75,12 @@ mainScene.createMap = function() {
     const layerWidth = 64 * 1 * 12;
     const layerHeight = 64 * 1 * 12;
 
-    this.groundLayer = this.map.createDynamicLayer('stage', groundTiles, 0, 0);
+    // 画面中央のX座標
+    const x = (this.game.config.width - layerWidth) / 2;
+    // 画面中央のY座標
+    const y = (this.game.config.height - layerHeight) / 2;
+
+    this.groundLayer = this.map.createDynamicLayer('stage', groundTiles, x, y);
     this.groundLayer.setDisplaySize(layerWidth, layerHeight);
     
     // 衝突判定から除外したいタイルのインデックスを配列で指定する
