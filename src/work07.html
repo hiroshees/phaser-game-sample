@@ -76,26 +76,26 @@ mainScene.createMap = function() {
     const layerHeight = 64 * 1 * 12;
 
     // 画面中央のX座標
-    const x = (this.game.config.width - layerWidth) / 2;
+    this.mapOriginX = (this.game.config.width - layerWidth) / 2;
     // 画面中央のY座標
-    const y = (this.game.config.height - layerHeight) / 2;
-
-    this.groundLayer = this.map.createDynamicLayer('stage', groundTiles, x, y);
+    this.mapOriginY = (this.game.config.height - layerHeight) / 2;
+    
+    this.groundLayer = this.map.createDynamicLayer('stage', groundTiles, this.mapOriginX, this.mapOriginY);
     this.groundLayer.setDisplaySize(layerWidth, layerHeight);
     
     // 衝突判定から除外したいタイルのインデックスを配列で指定する
     // 「-1」は空のタイルなので衝突しない。それ以外は衝突する
     this.groundLayer.setCollisionByExclusion([-1]);
     // ゲームワールドの幅と高さの設定
-    this.physics.world.bounds.width = this.groundLayer.displayWidth;
-    this.physics.world.bounds.height = this.groundLayer.displayHeight;
+    this.physics.world.bounds.width = this.game.config.width;
+    this.physics.world.bounds.height = this.game.config.height;
     // カメラの表示サイズの設定をする。マップのサイズがカメラの表示サイズ
     this.cameras.main.setBounds(0, 0, this.physics.world.bounds.width, this.physics.world.bounds.height);
 };
 
 mainScene.createPlayer = function() {
     // プレイヤー作成
-    this.player = this.physics.add.sprite(32, 64 + 32, 'tile');
+    this.player = this.physics.add.sprite(this.mapOriginX + 32, this.mapOriginY + 64 + 32, 'tile');
     // 衝突サイズの調整
     // プレイヤーのサイズ変更
     this.player.setDisplaySize(64,64);
