@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<script src="//cdn.jsdelivr.net/npm/phaser@3.50.0/dist/phaser.js"></script>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+}
+html, body {
+    height: 100%;
+    overflow: hidden;
+}
+</style>
+<script>
+const mainScene = new Phaser.Scene('MainScene');
+
+mainScene.preload = function() {
+    // タイル画像
+    this.load.spritesheet('tile', 'assets/images/sokoban_tilesheet.png', { 
+        frameWidth: 64, 
+        frameHeight: 64,
+    });
+    // マップのJSONファイルの読み込み
+    this.load.tilemapTiledJSON('map01', 'assets/data/map01.json');
+    // タイルマップデータを画像形式で出力したもの
+    this.load.image('map01_cover', 'assets/images/map01_cover.png');
+};
+
+mainScene.create = function() {
+    
+    this.createMap();
+    this.createPlayer();
+    this.createPlayerLight();
+};
+
+
+mainScene.update = function() {
+    if (this.input.keyboard.checkDown(this.cursors.left, 100)) {
+        const tile = this.groundLayer.getTileAtWorldXY(this.player.x - this.player.dx, this.player.y, true);
+        if (tile.index === -1) {
+            this.player.x -= this.player.dx;
+            this.player.anims.play('left', true);
+        }
+    } else if (this.input.keyboard.checkDown(this.cursors.right, 100)) {
+        const tile = this.groundLayer.getTileAtWorldXY(this.player.x + this.player.dx, this.player.y, true);
+        if (tile.index === -1) {
+            this.player.x += this.player.dx;
+            this.player.anims.play('right', true);
+        }
+    } else if (this.input.keyboard.checkDown(this.cursors.up, 100)) {
+        const tile = this.groundLayer.getTileAtWorldXY(this.player.x, this.player.y - this.player.dy, true);
+        if (tile.index === -1 ) {
+            this.player.y -= this.player.dy;
+            this.player.anims.play('up', true);
+        }
+    } else if (this.input.keyboard.checkDown(this.cursors.down, 100)){
+        const tile = this.groundLayer.getTileAtWorldXY(this.player.x, this.player.y + this.player.dy, true);
+        if (tile.index === -1) {
+            this.player.y += this.player.dy;
+            this.player.anims.play('down', true);
+        }
+    } else {
+        this.player.anims.stop();
+    }
+    
+    const lightX = this.player.x - this.groundLayerCoverImage.x + this.groundLayerCoverImage.width * 0.5;
+	const lightY = this.player.y - this.groundLayerCoverImage.y + this.groundLayerCoverImage.height * 0.5;
+    this.renderTexture.clear();
+	this.renderTexture.draw(this.light, lightX, lightY);
+};
+
+mainScene.createMap = function() {
+    // マップ表示
+    // JSON形式のマップデータの読み込み Tilemapオブジェクトの作成
+    this.map = this.make.tilemap({key: 'map01'});
+
+    // タイル画像をマップデータに反映する Tilesetオブジェクトの作成
+    const groundTiles = this.map.addTilesetImage("tile", "tile");
+    
+    // 地面レイヤー作成 DynamicTilemapLayerオブジェクト作成
+    const layerWidth = 64 * 1 * 12;
+    const layerHeight = 64 * 1 * 12;
+
+    // 画面中央のX座標
+    const centerX = this.game.config.width / 2;
+    // 画面中央のY座標
+    const centerY = this.game.config.height / 2;
+    // レイヤーの左上X座標
+    const layerOriginX = (this.game.config.width - layerWidth) / 2;
+    // レイヤーの左上Y座標
+    const layerOriginY = (this.game.config.height - layerHeight) / 2;
+    // レイヤー作成
+    this.groundLayer = this.map.createLayer('stage', groundTiles,layerOriginX, layerOriginY);
+    this.groundLayer.setDisplaySize(layerWidth, layerHeight);
+    this.groundLayer.setCollisionByExclusion([-1]);
+
+    // カバー用の画像作成
+    this.groundLayerCoverImage = this.add.image(centerX, centerY, 'map01_cover');
+    this.groundLayerCoverImage.setDisplaySize(layerWidth, layerHeight);
+    //this.groundLayerCoverImage.setTint(0x2d2b2b);
+    this.groundLayerCoverImage.setTint(0x000000);
+    
+    // テクスチャー作成
+	this.renderTexture = this.make.renderTexture({
+		width: layerWidth,
+		height: layerHeight,
+		add: false
+	});
+
+    // テキスチャーに基づくマスク画像作成
+	const maskImage = this.make.image({
+		x : centerX,
+		y : centerY,
+		key: this.renderTexture.texture.key,
+		add: false
+	});
+    
+    // カバー用画像にマスク設定
+	this.groundLayerCoverImage.mask = new Phaser.Display.Masks.BitmapMask(this, maskImage);
+	this.groundLayerCoverImage.mask.invertAlpha = true;
+    // レイヤにマスク設定
+	this.groundLayer.mask = new Phaser.Display.Masks.BitmapMask(this, maskImage);
+    
+    // ゲームワールドの幅と高さの設定
+    this.physics.world.bounds.width = this.game.config.width;
+    this.physics.world.bounds.height = this.game.config.height;
+    // カメラの表示サイズの設定をする。マップのサイズがカメラの表示サイズ
+    this.cameras.main.setBounds(0, 0, this.physics.world.bounds.width, this.physics.world.bounds.height);
+};
+
+mainScene.createPlayer = function() {
+    // プレイヤー作成
+    const tile = this.groundLayer.getTileAt(0,1,true);
+    this.player = this.physics.add.sprite(tile.getCenterX(),tile.getCenterY(), 'tile');
+    // 衝突サイズの調整
+    // プレイヤーのサイズ変更
+    this.player.setDisplaySize(64,64);
+    // プレイヤーの最初の向きは右
+    this.player.setFrame(52);
+    // プレイヤーの衝突時のバウンス設定
+    this.player.setBounce(0);
+    // プレイヤーがゲームワールドの外に出ないように衝突させる
+    this.player.setCollideWorldBounds(true);
+    // プレイヤーが地面レイヤーと衝突する設定
+    this.physics.add.collider(this.player, this.groundLayer);
+    
+    // 移動量
+    this.player.dx = 64;
+    this.player.dy = 64;
+    
+    // 下向きのアニメーション
+    this.anims.create({
+        key: 'down',
+        frames: this.anims.generateFrameNumbers('tile', { start: 52, end: 54 }),
+        frameRate: 10,
+        repeat: -1
+    });
+    // 上向きのアニメーション
+    this.anims.create({
+        key: 'up',
+        frames: this.anims.generateFrameNumbers('tile', { start: 55, end: 57 }),
+        frameRate: 10,
+        repeat: -1
+    });
+
+    // 左向きのアニメーション
+    this.anims.create({
+        key: 'left',
+        frames: this.anims.generateFrameNumbers('tile', { start: 81, end: 83 }),
+        frameRate: 10,
+        repeat: -1
+    });
+    // 右向きのアニメーション
+    this.anims.create({
+        key: 'right',
+        frames: this.anims.generateFrameNumbers('tile', { start: 78, end: 80 }),
+        frameRate: 10,
+        repeat: -1
+    });
+    this.cursors = this.input.keyboard.createCursorKeys();
+};
+
+mainScene.createPlayerLight = function() {
+    // プレイヤー追跡ライトの作成
+    // 実態はただのサークル
+	this.light = this.add.circle(100, 100, 200, 0x000000, 1);
+	this.light.visible = false;
+};
+
+const config = {
+    type: Phaser.AUTO,
+    width: window.innerWidth,
+    height: window.innerHeight,
+    backgroundColor: '#c1c1c1',
+    physics: {
+        default: 'arcade',
+        arcade: {
+            debug: true,
+        }
+    },
+    scene: [mainScene],
+};
+
+const game = new Phaser.Game(config);
+
+window.addEventListener("resize", (event) => {
+    game.scale.resize(window.innerWidth, window.innerHeight);
+},false);
+</script>
+</head>
+<body>
+</body>
+</html>
