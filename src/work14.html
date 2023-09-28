@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<script src="//cdn.jsdelivr.net/npm/phaser@3.18.0/dist/phaser.js"></script>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+}
+html, body {
+    height: 100%;
+    overflow: hidden;
+}
+</style>
+<script>
+const mainScene = new Phaser.Scene('MainScene');
+
+mainScene.preload = function() {
+    // スプライト画像の読み込み
+    this.load.spritesheet('jets', 'assets/images/jets.png', {frameWidth: 64, frameHeight: 64});
+};
+
+mainScene.create = function() {
+    // 画面中央のX座標
+    this.centerX = this.game.config.width / 2;
+    // 画面中央のY座標
+    this.centerY = this.game.config.height / 2;
+
+    // ジェット機の作成
+    this.createJets();
+};
+
+mainScene.update = function() {
+    this.circularMoveJets();
+};
+
+mainScene.createJets = function() {
+    // ジェット機の作成
+    this.jets = this.add.sprite(0, 0, 'jets');
+    this.jets.setDisplaySize(50,50);
+    this.jets.setFrame(1);
+    this.jets.angle = 0;
+    this.jets.radius = 100;
+};
+
+mainScene.circularMoveJets  = function() {
+    // ジェット機が円運動する
+    this.jets.angle--;
+    const rad = this.degreeToRadian(this.jets.angle);
+    // x = 半径 * Math.con(ラジアン値)
+    const x = this.jets.radius * Math.cos(rad);
+    // y = 半径 * Math.sin(ラジアン値)
+    const y = this.jets.radius * Math.sin(rad);
+    this.jets.x = this.centerX + x;
+    this.jets.y = this.centerY + y;
+};
+
+mainScene.degreeToRadian = function(degree) {
+    // 角度の単位の変換　デグリーからラジアン
+    // degree * (pi / 180)
+    return degree * (Math.PI/180);
+};
+
+const config = {
+    type: Phaser.AUTO,
+    width: window.innerWidth,
+    height: window.innerHeight,
+    backgroundColor: '#c1c1c1',
+    scene: [mainScene],
+};
+
+const game = new Phaser.Game(config);
+
+window.addEventListener("resize", (event) => {
+    game.scale.resize(window.innerWidth, window.innerHeight);
+},false);
+</script>
+</head>
+<body>
+</body>
+</html>
