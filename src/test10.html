@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<script src="//cdn.jsdelivr.net/npm/phaser@3.50.0/dist/phaser.js"></script>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+}
+html, body {
+    height: 100%;
+    overflow: hidden;
+}
+</style>
+<script>
+const mainScene = new Phaser.Scene('MainScene');
+
+const fragmentShader = `
+//@machine_shaman
+
+`;
+
+mainScene.preload = function() {
+    
+};
+
+mainScene.create = function() {
+    // 画面幅
+    const width = this.game.config.width;
+    // 画面高さ
+    const height = this.game.config.height;
+    // 画面幅の中心
+    const x = width / 2;
+    // 画面高さの中心
+    const y = height / 2;
+    
+    const baseShader = new Phaser.Display.BaseShader('BufferShader', fragmentShader);
+    const shader = this.add.shader(baseShader, x, y, width, height);
+};
+
+const config = {
+    type: Phaser.AUTO,
+    width: window.innerWidth,
+    height: window.innerHeight,
+    backgroundColor: '#c1c1c1',
+    physics: {
+        default: 'arcade',
+        arcade: {
+            debug: true,
+        }
+    },
+    scene: [mainScene],
+};
+
+const game = new Phaser.Game(config);
+
+window.addEventListener("resize", (event) => {
+    game.scale.resize(window.innerWidth, window.innerHeight);
+},false);
+</script>
+</head>
+<body>
+</body>
+</html>

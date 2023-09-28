@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<script src="//cdn.jsdelivr.net/npm/phaser@3.50.0/dist/phaser.js"></script>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+}
+html, body {
+    height: 100%;
+    overflow: hidden;
+}
+</style>
+<script>
+
+// 角度の単位の変換　デグリーからラジアン
+function degreeToRadian(degree) {
+  return degree * (Math.PI/180);
+}
+
+const mainScene = new Phaser.Scene('MainScene');
+
+mainScene.preload = function() {
+    this.load.image('ball', 'assets/images/ball01.png');
+    this.load.image('arrow', 'assets/images/arrow02.png');
+};
+
+mainScene.create = function() {
+    this.config();
+    this.createBallContainer();
+    this.createBall();
+    this.createArrow();
+    
+    this.createUI();
+};
+
+mainScene.update = function() {
+    const cursors = this.input.keyboard.createCursorKeys();
+    if(cursors.right.isDown) {
+        // 右に移動
+        this.ball.angle += this.dangle;
+        this.ball.setAngle(this.ball.angle);
+    }
+    if(cursors.left.isDown) {
+        // 左に移動
+        this.ball.angle -= this.dangle;
+        this.ball.setAngle(this.ball.angle);
+    }
+    
+    if(cursors.up.isDown) {
+        this.ball.power += this.dpower;
+    }
+    if(cursors.down.isDown) {
+        this.ball.power -= this.dpower;
+    }
+    this.ball.power = Phaser.Math.Clamp(this.ball.power, this.minPower, this.maxPower);
+    
+    this.calculateDirection();
+    this.updateAngleText(this.ball.angle);
+    this.updatetoXText(this.ball.toX);
+    this.updatetoYText(this.ball.toY);
+    this.updatepowerText(this.ball.power);
+};
+
+mainScene.config = function() {
+    this.dangle = 3;
+    this.dpower = 10;
+    this.maxPower = 500;
+    this.minPower = 100;
+
+};
+
+mainScene.createBallContainer = function() {
+    // 画面中央のX座標
+    const x = this.game.config.width / 2;
+    // 画面中央のY座標
+    const y = this.game.config.height / 2;
+    
+    // コンテナをボールとして作成
+    this.ball = this.add.container(x, y);
+    this.ball.setSize(50,50);
+    
+    // コンテナを物理エンジン対象にする
+    this.physics.add.existing(this.ball);
+    this.ball.body.setCollideWorldBounds(true);
+    this.ball.body.setBounce(0.1);
+    //this.ball.body.setFriction(0,0);
+    
+    // ボールコンテナの各種設定
+    this.ball.toX = 1;
+    this.ball.toY = 0;
+    this.ball.power = 100;
+    this.ball.angle = 0;
+    
+    this.input.keyboard.on('keydown-SPACE', function(event) {
+        this.shoot();
+    }, this);
+};
+
+mainScene.createBall = function() {
+    // ボール画像を作成
+    this.ballImage = this.add.image(0, 0, 'ball');
+    this.ballImage.setDisplaySize(50, 50);
+    // ボール画像をボールコンテナに追加
+    this.ball.add(this.ballImage);
+};
+
+mainScene.createArrow = function() {
+    // 矢印画像を通常画像として作成
+    this.arrow = this.add.image(80, 0, 'arrow');
+    this.arrow.setDisplaySize(100,100);
+    // ボールコンテナに矢印画像を追加
+    this.ball.add(this.arrow);
+};
+
+mainScene.createMap = function() {
+    // マップ表示
+};
+
+mainScene.createPlayer = function() {
+    // プレイヤー作成
+};
+
+mainScene.movePlayer = function() {
+
+};
+
+mainScene.createBulletGroup = function() {
+    
+};
+
+mainScene.shoot = function() {
+    // ボールコンテナを発射
+    var x = this.ball.toX * this.ball.power;
+    var y = this.ball.toY * this.ball.power;
+    this.ball.body.setVelocity(x, y);
+    
+    // 5行後に停止させる
+    this.shootTimer = this.time.addEvent({
+        delay:5000,
+        callback: this.ballVelocityOff,
+        loop: false,
+        callbackScope: this,
+    });
+};
+
+mainScene.ballVelocityOff = function() {
+    // 加速度を強制的に0にして停止させる
+    this.ball.body.setVelocity(0);
+};
+
+mainScene.calculateDirection = function() {
+    // 度法での角度
+    var angleDegree = this.ball.angle;
+    // ラジアンでの角度に変換
+    var angleRadian = degreeToRadian(angleDegree);
+    // ラジアン角度の余弦を返す、つまりX座標
+    const x = Math.cos(angleRadian);
+    // ラジアン角度の正弦を返す、つまりY座標
+    const y = Math.sin(angleRadian);
+    
+    // ボールの方向を設定
+    this.ball.toX = x;
+    this.ball.toY = y;
+};
+
+mainScene.createUI = function() {
+    const x = this.game.config.width - 200;
+    const y = 100;
+    
+    this.angleText = this.add.text(x, y,'',{
+        font : "30px Open Sans",
+        fill : "#ff0000",
+    });
+    this.toXText = this.add.text(x, y+100,'',{
+        font : "30px Open Sans",
+        fill : "#ff0000",
+    });
+    this.toYText = this.add.text(x, y+200,'',{
+        font : "30px Open Sans",
+        fill : "#ff0000",
+    });
+    this.powerText = this.add.text(x, y+300,'',{
+        font : "30px Open Sans",
+        fill : "#ff0000",
+    });
+    
+    this.updateAngleText(this.ball.angle);
+    this.updatetoXText(this.ball.toX);
+    this.updatetoYText(this.ball.toY);
+    this.updatepowerText(this.ball.power);
+};
+
+mainScene.updateAngleText = function(angle) {
+    this.angleText.setText('Angle:' + angle);    
+};
+
+mainScene.updatetoXText = function(toX) {
+    this.toXText.setText('toX:' + toX);    
+};
+
+mainScene.updatetoYText = function(toY) {
+    this.toYText.setText('toY:' + toY);    
+};
+
+mainScene.updatepowerText = function(power) {
+    this.powerText.setText('power:' + power);    
+};
+
+
+
+mainScene.setCollider = function() {
+
+};
+
+mainScene.hitLayer = function(bullet, tile) {
+
+};
+
+const config = {
+    type: Phaser.AUTO,
+    width: window.innerWidth,
+    height: window.innerHeight,
+    backgroundColor: '#c1c1c1',
+    physics: {
+        default: 'arcade',
+        arcade: {
+            gravity: {
+                y: 400,
+            },
+            debug: true,
+        }
+    },
+    scene: [mainScene],
+};
+
+const game = new Phaser.Game(config);
+
+window.addEventListener("resize", (event) => {
+    game.scale.resize(window.innerWidth, window.innerHeight);
+},false);
+
+</script>
+</head>
+<body>
+</body>
+</html>

@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<script src="//cdn.jsdelivr.net/npm/phaser@3.50.0/dist/phaser.js"></script>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+}
+html, body {
+    height: 100%;
+    overflow: hidden;
+}
+</style>
+<script>
+const mainScene = new Phaser.Scene('MainScene');
+
+mainScene.preload = function() {
+    // タイル画像
+    this.load.spritesheet('map_tiles1', 'assets/images/map_tiles1.png', { 
+        frameWidth: 18, 
+        frameHeight: 18,
+        spacing: 3,
+    });
+    
+    // マップのJSONファイルの読み込み
+    this.load.tilemapTiledJSON('map10', 'assets/data/map10-a.json');
+    
+    this.load.image('player', 'assets/images/tank_blue.png');
+    this.load.image('bullet', 'assets/images/bulletBlue2_outline.png');
+};
+
+mainScene.create = function() {
+    this.config();
+    this.createMap();
+    this.createPlayer();
+    this.createBulletGroup();
+    
+    this.setCollider();
+};
+
+mainScene.update = function() {
+    this.movePlayer();
+};
+
+mainScene.config = function() {
+    this.config.width = 18;
+    this.config.height = 18;
+    this.config.margin = 0;
+    this.config.spacing = 3;
+    this.config.scale = 2;
+    this.config.column = 30;
+};
+
+mainScene.createMap = function() {
+    // マップ表示
+    // JSON形式のマップデータの読み込み Tilemapオブジェクトの作成
+    this.map = this.make.tilemap({key: 'map10'});
+    
+    // タイル画像をマップデータに反映する Tilesetオブジェクトの作成
+    this.tiles = this.map.addTilesetImage("map_tiles1", "map_tiles1", 
+        this.config.width,
+        this.config.height, 
+        this.config.margin,
+        this.config.spacing,
+    );
+    
+    // レイヤーのサイズ
+    const layerWidth = this.config.width * this.config.scale * this.config.column;
+    const layerHeight = this.config.height * this.config.scale * this.config.column;    
+
+    // groundレイヤー
+    this.groundLayer = this.map.createLayer("ground", this.tiles, 0, 0);
+    this.groundLayer.setDisplaySize(layerWidth, layerHeight);
+        
+    // borderレイヤー
+    this.borderLayer = this.map.createLayer("border", this.tiles, 0, 0);
+    this.borderLayer.setDisplaySize(layerWidth, layerHeight);
+    this.borderLayer.setCollisionByExclusion([-1]);
+        
+    // natureレイヤー
+    this.natureLayer = this.map.createLayer("nature", this.tiles, 0, 0);
+    this.natureLayer.setDisplaySize(layerWidth, layerHeight);
+    
+    // obstacleレイヤー
+    this.obstacleLayer = this.map.createLayer("obstacle", this.tiles, 0, 0);
+    this.obstacleLayer.setDisplaySize(layerWidth, layerHeight);
+    this.obstacleLayer.setCollisionByExclusion([-1]);
+        
+    // ゲームワールドの幅と高さの設定
+    this.physics.world.bounds.width = this.groundLayer.displayWidth;
+    this.physics.world.bounds.height = this.groundLayer.displayHeight;
+        
+    // カメラの表示サイズの設定をする。マップのサイズがカメラの表示サイズ
+    this.cameras.main.setBounds(0, 0, this.physics.world.bounds.width, this.physics.world.bounds.height);
+};
+
+mainScene.createPlayer = function() {
+    // プレイヤー作成
+    this.player = this.physics.add.image(180, 980, 'player');
+    this.player.setDisplaySize(36, 36);
+    this.player.setFlipY(true);
+    this.player.setCollideWorldBounds(true);
+    
+    this.player.speed = 300;
+
+    this.player.direction = 'up';
+
+    this.input.keyboard.on('keydown-SPACE', function(event) {
+        this.shoot();
+    }, this);
+    
+
+     this.cameras.main.startFollow(this.player);
+};
+
+mainScene.movePlayer = function() {
+    const cursors = this.input.keyboard.createCursorKeys();
+    if(cursors.right.isDown) {
+        // 右に移動
+        this.player.setVelocityX(this.player.speed);
+        this.player.setAngle(90);
+        this.player.direction = 'right';
+    } else if(cursors.left.isDown) {
+        // 左に移動
+        this.player.setVelocityX(-this.player.speed);
+        this.player.setAngle(-90);
+        this.player.direction = 'left';
+    } else if(cursors.up.isDown) {
+        // 上に移動
+        this.player.setVelocityY(-this.player.speed);
+        this.player.setAngle(0);
+        this.player.direction = 'up';
+    } else if(cursors.down.isDown) {
+        // 下に移動
+        this.player.setVelocityY(this.player.speed);
+        this.player.setAngle(180);
+        this.player.direction = 'down';
+    } else {
+        this.player.setVelocity(0);
+    }
+};
+
+mainScene.createBulletGroup = function() {
+    this.bulletGroup = this.physics.add.group();
+    
+    
+};
+
+mainScene.shoot = function() {
+    var x = this.player.body.center.x;
+    var y = this.player.body.center.y;
+    
+    var bullet = this.bulletGroup.create(x, y, 'bullet');
+    bullet.setDisplaySize(10,30);
+    bullet.speed = 600;
+    
+    if(this.player.direction == 'up') {
+        bullet.setAngle(0);
+        bullet.setVelocityY(-bullet.speed);
+    } else if (this.player.direction == 'down') {
+        bullet.setAngle(180);
+        bullet.setVelocityY(bullet.speed);
+    } else if (this.player.direction == 'right') {
+        bullet.setAngle(90);
+        bullet.setVelocityX(bullet.speed);
+    } else if (this.player.direction == 'left') {
+        bullet.setAngle(-90);
+        bullet.setVelocityX(-bullet.speed);
+    }
+};
+
+
+mainScene.setCollider = function() {
+    this.physics.add.collider(this.player, this.borderLayer);
+    this.physics.add.collider(this.player, this.obstacleLayer);
+    
+    this.physics.add.collider(this.bulletGroup, this.borderLayer, this.hitLayer, null, this);
+    this.physics.add.collider(this.bulletGroup, this.obstacleLayer, this.hitLayer, null, this);
+};
+
+mainScene.hitLayer = function(bullet, tile) {
+    bullet.destroy();
+};
+
+const config = {
+    type: Phaser.AUTO,
+    width: window.innerWidth,
+    height: window.innerHeight,
+    backgroundColor: '#c1c1c1',
+    physics: {
+        default: 'arcade',
+        arcade: {
+            debug: true,
+        }
+    },
+    scene: [mainScene],
+};
+
+const game = new Phaser.Game(config);
+
+window.addEventListener("resize", (event) => {
+    game.scale.resize(window.innerWidth, window.innerHeight);
+},false);
+
+</script>
+</head>
+<body>
+</body>
+</html>

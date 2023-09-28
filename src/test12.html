@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title>Test Home</title>
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+<! -- Font -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+1&display=swap" rel="stylesheet">
+<!-- Bootstrap core CSS -->
+<link href="./mdb/css/bootstrap.min.css" rel="stylesheet">
+<!-- Material Design Bootstrap -->
+<link href="./mdb/css/mdb.min.css" rel="stylesheet">
+<link href="./mdb/css/style.css" rel="stylesheet">
+<script src="//cdn.jsdelivr.net/npm/phaser@3.50.0/dist/phaser.js"></script>
+</head>
+<body class="creative-lp">
+    <!-- Navigation & Intro -->
+    <header>
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top scrolling-navbar white">
+            <div class="container">
+                <a class="navbar-brand font-weight-bold title" href="./">
+                    <img src="./assets/images/logo_h_trans_red.png" height="45px" />
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                
+                <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                    <ul class="list-unstyled navbar-nav mr-auto">
+                        <li class="nav-item ml-4">
+                            <a class="nav-link" href="https://codeofgenius.net/camp">キャンプ</a>
+                        </li>
+                        <li class="nav-item ml-4">
+                            <a class="nav-link" href="https://codeofgenius.net/online">スタンダード</a>
+                        </li>
+                        <li class="nav-item ml-4">
+                            <a class="nav-link" href="https://codeofgenius.net/master">マスター</a>
+                        </li>
+                    </ul>
+                    <!-- Social Icon  -->
+                    <ul class="navbar-nav nav-flex-icons">
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://github.com/programmingkids/">
+                                <i class="fab fa-github title"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://twitter.com/codeofgenius">
+                                <i class="fab fa-twitter title"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://laplace.programmingkids.net/">
+                                <i class="fas fa-cloud title"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item ml-3">
+                            <a class="btn pink-gradient btn-rounded btn-sm font-weight-bold" href="tel:050-3138-2090" data-offset="90">電話</a>
+                        </li>
+                        <li class="nav-item ml-3">
+                            <a class="btn pink-gradient btn-rounded btn-sm font-weight-bold" href="https://codeofgenius.net/contact" data-offset="90">お問合せ</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!--Intro Section-->
+        <section class="view intro-4" id="home">
+            <div id="root"></div>
+            <div class="mask rgba-indigo-light">
+                <div class="container h-100 d-flex justify-content-center align-items-center">
+                    <div class="row flex-center pt-5 mt-3">
+                        <div class="col-md-12 col-lg-12 text-center margins">
+                            <div class="">
+                                <h1 class="display-4 mt-md-5 mt-lg-0 mb-4 font-weight-bold white-text wow fadeIn" data-wow-delay="0.3s">
+                                    <strong>プログラミングでアイディアを形にする</strong>
+                                </h1>
+                                <hr class="hr-light wow fadeIn" data-wow-delay="0.3s">
+                                <h2 class="white-text description wow fadeIn" data-wow-delay="0.3s">
+                                    中学生・高校生向けオンラインプログラミングスクール
+                                </h2>
+                                <br>
+                                <a class="btn pink-gradient btn-rounded btn-lg font-weight-bold wow fadeIn" data-wow-delay="0.3s" href="https://codeofgenius.net/camp">キャンプ</a>
+                                <a class="btn btn-white btn-rounded btn-lg orange-text font-weight-bold ml-lg-0 wow fadeIn" data-wow-delay="0.3s" data-toggle="modal" data-target="#modal1">
+                                    <i class="fas fa-play-circle orange-text mr-2" aria-hidden="true"></i>動画
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </header>
+    <!-- Navigation & Intro -->
+    <!-- video demo -->
+    <div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <!--Content-->
+        <div class="modal-content">
+            <!--Body-->
+            <div class="modal-body mb-0 p-0">
+                <div class="embed-responsive embed-responsive-16by9 z-depth-1-half">
+                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/eYfAVPlOeuE" allowfullscreen></iframe>
+                </div>
+            </div>
+            <!-- Footer -->
+            <div class="modal-footer justify-content-center">
+                <!--Twitter-->
+                <a type="button" class="btn-floating btn-sm btn-tw" href="https://twitter.com/codeofgenius"><i class="fab fa-twitter"></i></a>
+                <button type="button" class="btn btn-outline-primary btn-rounded btn-md ml-4" data-dismiss="modal">閉じる</button>
+            </div>
+        </div>
+        <!--/.Content-->
+      </div>
+    </div>
+    <!-- /video demo -->
+    
+    <!-- Main content -->
+    <main>
+        <div class="container">
+            <!-- Section Banner -->
+            <section id="banner" class="section banner-box text-center my-5">
+                <h2 class="title font-weight-bold my-5 wow fadeIn" data-wow-delay="0.2s">
+                    <strong>夏休みのプログラミングキャンプ開催中</strong>
+                </h2>
+                <p class="grey-text w-responsive mx-auto mb-5 wow fadeIn" data-wow-delay="0.2s">
+                <a href="https://codeofgenius.net/camp">
+                    <img src="https://codeofgenius.net/wp-content/uploads/banner_camp002.jpg" class="img-fluid" />
+                </a>
+                </p>
+            </section>
+            <!-- /Section Banner -->
+            
+            <hr>
+
+            <!-- Section: About 1 -->
+            <section id="about" class="section about mt-5 mb-5 py-3 wow fadeIn text-center" data-wow-delay="0.2s">
+                <h2 class="title font-weight-bold my-5 wow fadeIn" data-wow-delay="0.2s">
+                    <strong>About us</strong>
+                </h2>
+                <!-- Section sescription -->
+                <h4 class="red-text w-responsive mx-auto mb-5 wow fadeIn" data-wow-delay="0.2s">
+                    たくましい知性を備えた21世紀を切り拓くリーダーとなるために
+                </h4>
+                <!-- Grid row -->
+                <div class="row pt-2 mt-lg-5">
+                    <!-- Grid column -->
+                    <div class="col-lg-6 col-md-12 mb-3 wow fadeIn" data-wow-delay="0.4s">
+                        <!-- Image -->
+                        <img src="https://codeofgenius.net/wp-content/themes/cog/images/img_about01.jpg" class="img-fluid rounded" alt="My photo">
+                    </div>
+                    <!-- Grid column -->
+
+                    <!-- Grid column -->
+                    <div class="col-lg-6 ml-auto col-md-12 wow fadeIn" data-wow-delay="0.4s">
+                        <!-- Secion heading -->
+                        <!-- Description -->
+                        <p align="justify" class="grey-text">
+                            新型コロナウイルス感染症の影響で、学校での学び方も大きく変わった皆さんも多いのではないでしょうか？
+                            今や、プログラミングを理解していることは、すなわち、未来で活躍すること、好きなことを仕事にすることと同義となってきました。
+                            プログラミングを通して、多くの失敗を乗り越え思考力を働かせながら試行錯誤を行い、最後までやり抜く力を身につけ、
+                            あなたの持つ創造性を開花させて欲しい。
+                            自主自律の高い精神性と豊かな感性の土台の上に高度な創造力を発揮できる人になってほしい。
+                            一歩を踏み出すあなたの決意を待っています。
+                        </p>
+                    </div>
+                    <!-- Grid column -->
+                </div>
+                <!-- Grid row -->
+            </section>
+            <!-- Section: About 1 -->
+        </div>
+
+        <div class="streak streak-photo streak-md streak-vision">
+            <div class="flex-center view rgba-indigo-strong">
+                <div class="container py-3">
+                    <!--Section: Pricing v.5-->
+                    <section id="" class="text-center my-5">
+                        <!--Section heading-->
+                        <h2 class="my-3 white-text font-weight-bold text-center wow fadeIn" data-wow-delay="0.2s">
+                            Our Vision
+                        </h2>
+                        <!-- Section sescription -->
+                        <h4 class="w-responsive my-5 text-center white-text mx-auto mb-5 wow fadeIn" data-wow-delay="0.2s">
+                        基本方針「主体性と創造性」
+                        </h4>
+                        <!--Grid row-->
+                        <div class="row">
+                            <!--Grid column-->
+                            <div class="col-lg-6 col-md-12 mb-5">
+                                <!-- Card -->
+                                <div class="card">
+                                  <!-- Card image -->
+                                  <div class="view overlay">
+                                    <img class="card-img-top" src="https://codeofgenius.net/wp-content/uploads/img_feature002.jpg"
+                                      alt="Card image cap">
+                                    <a>
+                                      <div class="mask rgba-white-slight"></div>
+                                    </a>
+                                  </div>
+                                
+                                  <!-- Card content -->
+                                  <div class="card-body rounded-bottom">
+                                    <!-- Title -->
+                                    <h4 class="card-title">主体性</h4>
+                                    <hr class="">
+                                    <!-- Text -->
+                                    <p class="card-text text-left mb-4">
+                                    プログラミング学習には自ら取り組む姿勢が不可欠です。
+                                    コードオブジーニアスでは、主体的な学習姿勢を養うことを目指します。
+                                    講義形式の学習ではなく、個別学習を基本とします。
+                                    「自ら学ぶ」姿勢で学習を進めます
+                                    </p>
+                                  </div>
+                                </div>
+                                <!-- Card -->
+                            </div>
+                            <!--Grid column-->
+        
+                            <!--Grid column-->
+                            <div class="col-lg-6 col-md-12 mb-5">
+                                <!-- Card -->
+                                <div class="card">
+                                  <!-- Card image -->
+                                  <div class="view overlay">
+                                    <img class="card-img-top" src="https://codeofgenius.net/wp-content/uploads/img_feature001.jpg"
+                                      alt="Card image cap">
+                                    <a>
+                                      <div class="mask rgba-white-slight"></div>
+                                    </a>
+                                  </div>
+                                
+                                  <!-- Card content -->
+                                  <div class="card-body rounded-bottom">
+                                    <!-- Title -->
+                                    <h4 class="card-title">創造性</h4>
+                                    <hr class="">
+                                    <!-- Text -->
+                                    <p class="card-text text-left mb-4">
+                                    文法を理解するだけでなく、ゲーム、アプリなどの作品を構築することを目指します。
+                                    プログラムを利用して、自分のアイディアを実現する力を養います。
+                                    カリキュラムをこなすだけでなく、自分で作り出すことに挑戦します
+                                    </p>
+                                  </div>
+                                </div>
+                                <!-- Card -->
+                            </div>
+                            <!--Grid column-->
+        
+                        </div>
+                        <!--Grid row-->
+        
+                    </section>
+                    <!--Section: Pricing v.5-->
+                </div>
+            </div>
+        </div>
+            
+        <div class="container">
+            <!-- Section: Features v.4 -->
+            <section id="features" class="section feature-box text-center my-5">
+
+                <!-- Section heading -->
+                <h2 class="title font-weight-bold my-5 wow fadeIn" data-wow-delay="0.2s">
+                    <strong>Features</strong>
+                </h2>
+                
+                <!-- Section sescription -->
+                <h4 class="red-text w-responsive mx-auto mb-5 wow fadeIn" data-wow-delay="0.2s">
+                    3つの特長
+                </h4>
+                
+                <!--First row-->
+                <div class="row features wow fadeIn" data-wow-delay="0.2s">
+                    <div class="col-lg-4 text-center">
+                        <div class="icon-area">
+                            <div class="circle-icon">
+                                <i class="fas fa-chalkboard-teacher pink-text"></i>
+                            </div>
+                            <br>
+                            <h5 class="dark-grey-text font-weight-bold mt-2">自ら学び、自ら成長するスタイル</h5>
+                            <div class="mt-1">
+                                <p class="mx-3 grey-text">
+                                これからの時代は、AI（人工知能）やロボットの進化がどんどん進んでいきます。
+                                そこで、求められているのは、自ら学び成長していく学習習慣です。
+                                コードオブジーニアスでは、プログラミング学習を通して、自学自習の学習スタイルが身につきます
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 text-center">
+                        <div class="icon-area">
+                            <div class="circle-icon">
+                                <i class="fas fa-book pink-text"></i>
+                            </div>
+                            <br>
+                            <h5 class="dark-grey-text font-weight-bold mt-2">充実したカリキュラム</h5>
+                            <div class="mt-1">
+                                <p class="mx-3 grey-text">
+                                プログラミングが初めてといった方でもスムーズにスタートできるよう、
+                                わかりやすいカリキュラムとなっています。
+                                一方、将来、世界で活躍するトップエンジニアを目指すこともできるような
+                                奥深く本格的なカリキュラムも同時に提供しています
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 text-center mb-4">
+                        <div class="icon-area">
+                            <div class="circle-icon">
+                                <i class="fas fa-users pink-text"></i>
+                            </div>
+                            <br>
+                            <h5 class="dark-grey-text font-weight-bold mt-2">目指せ！トップITエンジニア</h5>
+                            <div class="mt-1">
+                                <p class="mx-3 grey-text">
+                                コードオブジーニアスでは、生徒一人ひとりに高い目標を設定します。
+                                なぜなら、人は設定した目標以上に高くなることはできないからです。
+                                そのため、「トップITエンジニアになる」「自分のゲームをつくる」
+                                「社会を変革するリーダーになる」などの高い目標を設定します。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!--/First row-->
+
+            </section>
+            <!-- Section: Features v.4 -->
+
+            <hr>
+            
+            <!--Section: Pricing v.5-->
+            <section id="pricing" class="text-center my-5">
+                <!--Section heading-->
+                <h2 class="title font-weight-bold my-5 wow fadeIn" data-wow-delay="0.2s">
+                    <strong>Courses</strong>
+                </h2>
+                <!-- Section sescription -->
+                <h4 class="red-text w-responsive mx-auto mb-5 wow fadeIn" data-wow-delay="0.2s">
+                    コードオブジーニアスの学習コース
+                </h4>
+                <!--Grid row-->
+                <div class="row">
+                    <!--Grid column-->
+                    <div class="col-lg-4 col-md-12 mb-5">
+                        <!-- Card -->
+                        <div class="card">
+                          <!-- Card image -->
+                          <div class="view overlay">
+                            <img class="card-img-top" src="https://codeofgenius.net/wp-content/uploads/img_top_001.jpg"
+                              alt="Card image cap">
+                            <a>
+                              <div class="mask rgba-white-slight"></div>
+                            </a>
+                          </div>
+                        
+                          <!-- Card content -->
+                          <div class="card-body rounded-bottom">
+                            <!-- Title -->
+                            <h4 class="card-title">スタンダード</h4>
+                            <hr class="">
+                            <!-- Text -->
+                            <p class="card-text text-left mb-4">
+                            プログラミングの基礎スキルが身につく初心者向けのコース
+                            </p>
+                            <!-- Link -->
+                            <a href="https://codeofgenius.net/online" class="btn btn-pink btn-rounded">コース詳細</a>
+                          </div>
+                        </div>
+                        <!-- Card -->
+                    </div>
+                    <!--Grid column-->
+
+                    <!--Grid column-->
+                    <div class="col-lg-4 col-md-12 mb-5">
+                        <!-- Card -->
+                        <div class="card">
+                          <!-- Card image -->
+                          <div class="view overlay">
+                            <img class="card-img-top" src="https://codeofgenius.net/wp-content/uploads/img_top_002.jpg"
+                              alt="Card image cap">
+                            <a>
+                              <div class="mask rgba-white-slight"></div>
+                            </a>
+                          </div>
+                        
+                          <!-- Card content -->
+                          <div class="card-body rounded-bottom">
+                            <!-- Title -->
+                            <h4 class="card-title">マスター</h4>
+                            <hr class="">
+                            <!-- Text -->
+                            <p class="card-text text-left mb-4">
+                            スタンダードコース終了した方向け、より高いレベルを目指すコース
+                            </p>
+                            <!-- Link -->
+                            <a href="https://codeofgenius.net/master" class="btn btn-pink btn-rounded">コース詳細</a>
+                          </div>
+                        </div>
+                        <!-- Card -->
+                    </div>
+                    <!--Grid column-->
+
+                    <!--Grid column-->
+                    <div class="col-lg-4 col-md-12 mb-5">
+                        <!-- Card -->
+                        <div class="card">
+                          <!-- Card image -->
+                          <div class="view overlay">
+                            <img class="card-img-top" src="https://codeofgenius.net/wp-content/uploads/img_top_003.jpg"
+                              alt="Card image cap">
+                            <a>
+                              <div class="mask rgba-white-slight"></div>
+                            </a>
+                          </div>
+                        
+                          <!-- Card content -->
+                          <div class="card-body rounded-bottom">
+                            <!-- Title -->
+                            <h4 class="card-title">キャンプ</h4>
+                            <hr class="">
+                            <!-- Text -->
+                            <p class="card-text text-left mb-4">
+                            夏休みや冬休み、春休みの期間に集中してプログラミングを体験するイベント
+                            </p>
+                            <!-- Link -->
+                            <a href="https://codeofgenius.net/camp" class="btn btn-pink btn-rounded">キャンプ詳細</a>
+                          </div>
+                        </div>
+                        <!-- Card -->
+                    </div>
+                    <!--Grid column-->
+
+                </div>
+                <!--Grid row-->
+
+            </section>
+            <!--Section: Pricing v.5-->
+
+        </div>
+
+        <!-- Streak -->
+        <div class="streak streak-photo streak-md streak-course">
+            <div class="flex-center view rgba-indigo-strong">
+                <div class="container py-3">
+                    <!--Section: Features v.4-->
+                    <section class="section feature-box wow fadeIn" data-wow-delay="0.2s">
+                        <!--Section heading-->
+                        <h2 class="my-3 white-text font-weight-bold text-center wow fadeIn" data-wow-delay="0.2s">
+                            Details
+                        </h2>
+                        <!-- Section sescription -->
+                        <h4 class="w-responsive my-5 text-center white-text mx-auto mb-5 wow fadeIn" data-wow-delay="0.2s">
+                        コース詳細
+                        </h4>
+
+                        <!--Grid row-->
+                        <div class="row features-small mb-5">
+                            <!--Grid column-->
+                            <div class="col-md-12 col-lg-6">
+                                <!--Grid row-->
+                                <div class="row mb-5">
+                                    <div class="col-2">
+                                        <a type="button" class="btn-floating white btn-lg my-0">
+                                            <i class="fas fa-keyboard blue-text"></i>
+                                        </a>
+                                    </div>
+                                    <div class="col-9 pl-5">
+                                        <h4 class="feature-title white-text">タイピング</h4>
+                                        <p class="white-text">
+                                        プログラムを理解できても、一本指でタイピングをしていたり、
+                                        入力するたびにキーボードのキーを探していると、成果につながりません。
+                                        高速かつ正確に入力できるタッチタイピングを目指します
+                                        </p>
+                                    </div>
+                                </div>
+                                <!--Grid row-->
+                            </div>
+                            <!--Grid column-->
+                            <!--Grid column-->
+                            <div class="col-md-12 col-lg-6">
+                                <!--Grid row-->
+                                <div class="row mb-5">
+                                    <div class="col-2">
+                                        <a type="button" class="btn-floating white btn-lg my-0">
+                                            <i class="fas fa-code blue-text"></i>
+                                        </a>
+                                    </div>
+                                    <div class="col-9 pl-5">
+                                        <h4 class="feature-title white-text">プログラミング</h4>
+                                        <p class="white-text">
+                                        JavaScriptゲーム作成コース、3Dゲーム作成コース、Pythonウェブアプリコース
+                                        、JavaScriptウェブアプリコースをカリキュラムに従って進めます。
+                                        各コースでは、基礎文法の学習から始まり、オリジナル作品を構築まで目指します
+                                        </p>
+                                    </div>
+                                </div>
+                                <!--Grid row-->
+                            </div>
+                            <!--Grid column-->
+                        </div>
+                        <!--Grid row-->
+
+                        <!--Grid row-->
+                        <div class="row features-small mb-5">
+                            <!--Grid column-->
+                            <div class="col-md-12 col-lg-6">
+                                <!--Grid row-->
+                                <div class="row mb-5">
+                                    <div class="col-2">
+                                        <a type="button" class="btn-floating white btn-lg my-0">
+                                            <i class="fas fa-laptop-code blue-text"></i>
+                                        </a>
+                                    </div>
+                                    <div class="col-9 pl-5">
+                                        <h4 class="feature-title white-text">本格的開発環境</h4>
+                                        <p class="white-text">
+                                        実際のエンジニアが利用する統合開発環境「IDE」と
+                                        同じ開発環境を利用して学習します。
+                                        子どもの学習だから簡単なツールを利用するのではなく、
+                                        本格的な開発環境を利用してプログラムを作成します
+                                        </p>
+                                    </div>
+                                </div>
+                                <!--Grid row-->
+                            </div>
+                            <!--Grid column-->
+                            <!--Grid column-->
+                            <div class="col-md-12 col-lg-6">
+                                <!--Grid row-->
+                                <div class="row mb-5">
+                                    <div class="col-2">
+                                        <a type="button" class="btn-floating white btn-lg my-0">
+                                            <i class="fas fa-cloud blue-text"></i>
+                                        </a>
+                                    </div>
+                                    <div class="col-9 pl-5">
+                                        <h4 class="feature-title white-text">クラウド</h4>
+                                        <p class="white-text">
+                                        各コースでは最後にオリジナルゲーム、アプリを作成します。
+                                        作品はクラウドを利用して公開します。
+                                        プログラミングだけでなく、コマンド操作、クラウド構築などの
+                                        スキル習得も目指します
+                                        </p>
+                                    </div>
+                                </div>
+                                <!--Grid row-->
+                            </div>
+                            <!--Grid column-->
+                        </div>
+                        <!--Grid row-->
+                        
+                    </section>
+                    <!--/Section: Features v.4-->
+                </div>
+            </div>
+        </div>
+        <!--/Streak-->
+
+        <div class="container-fluid" style="background-color: #f4f4fa">
+            <div class="container py-4">
+
+                <!--Section: Services-->
+                <section id="services" class="section mt-3 mb-3 pb-3">
+                    <!--Section heading-->
+                    <h2 class="title font-weight-bold my-5 wow fadeIn text-center" data-wow-delay="0.2s">
+                        <strong>Curriculum</strong>
+                    </h2>
+                    <!-- Section sescription -->
+                    <h4 class="red-text w-responsive mx-auto mb-5 wow fadeIn text-center" data-wow-delay="0.2s">
+                        学習カリキュラム
+                    </h4>
+                    
+                    <!-- First row -->
+                    <div class="row wow fadeIn" data-wow-delay="0.4s">
+                        <!-- First column -->
+                        <div class="col-md-4 mb-5 text-center">
+
+                            <!--Panel-->
+                            <div class="card card-body text-left white hoverable">
+                                <p class="feature-title title font-weight-bold dark-grey-text text-uppercase spacing mt-4 mx-4">
+                                    <i class="fas fa-square orange-text mr-2" aria-hidden="true"></i>
+                                    <strong>JavaScriptゲーム開発</strong>
+                                </p>
+                                <p class="grey-text font-small mx-4">
+                                JavaScriptの基礎文法の学習から、ミニゲーム作成を目指します。
+                                最後に、オリジナルゲーム作成に挑戦します
+                                </p>
+                            </div>
+                            <!--/.Panel-->
+
+                        </div>
+                        <!-- /First column -->
+
+                        <!-- Second column -->
+                        <div class="col-md-4 mb-5 text-center">
+
+                            <!--Panel-->
+                            <div class="card card-body text-left white hoverable">
+                                <p class="feature-title title font-weight-bold dark-grey-text text-uppercase spacing mt-4 mx-4">
+                                    <i class="fas fa-square orange-text mr-2" aria-hidden="true"></i>
+                                    <strong>3Dゲーム開発</strong>
+                                </p>
+                                <p class="grey-text font-small mx-4">
+                                UnityとC#を利用した3Dゲーム開発を目指します。
+                                オリジナルの3Dゲーム作成を目指します
+                                </p>
+                            </div>
+                            <!--/.Panel-->
+
+                        </div>
+                        <!-- /.Second column -->
+
+                        <!-- Third column -->
+                        <div class="col-md-4 mb-5 text-center">
+
+                            <!--Panel-->
+                            <div class="card card-body text-left white hoverable">
+                                <p class="feature-title title font-weight-bold dark-grey-text text-uppercase spacing mt-4 mx-4">
+                                    <i class="fas fa-square orange-text mr-2" aria-hidden="true"></i>
+                                    <strong>Pythonウェブアプリ開発</strong>
+                                </p>
+                                <p class="grey-text font-small mx-4">
+                                Pythonの基礎文法の学習からウェブアプリ作成まで学習します。
+                                オリジナルのウェブアプリ作成を目指します
+                                </p>
+                            </div>
+                            <!--/.Panel-->
+
+                        </div>
+                        <!-- /.Third column -->
+
+                    </div>
+                    <!-- /.First row -->
+                    <!-- Section description -->
+                    <p class="grey-text w-responsive mx-auto mb-5">
+                    基本的には、 JAVASCRIPTゲーム開発、3Dゲーム開発、PYTHONウェブアプリ開発の順番に学習を進めていきます。その後の学習カリキュラムも用意されています
+                    </p>
+                </section>
+                <!--/Section: Services-->
+
+            </div>
+        </div>
+        <!--Second container-->
+
+        <div class="container">
+            <!-- Section: Team v.1 -->
+            <section class="section team-section text-center my-5" id="feedback">
+                <!--Section heading-->
+                <h2 class="title font-weight-bold my-5 wow fadeIn text-center" data-wow-delay="0.2s">
+                    <strong>Voice</strong>
+                </h2>
+                <!-- Section sescription -->
+                <h4 class="red-text w-responsive mx-auto mb-5 wow fadeIn text-center" data-wow-delay="0.2s">
+                    生徒・保護者の感想
+                </h4>
+                
+                <div class="row mt-5 pt-5">
+                    <!--Grid column-->
+                    <div class="col-lg-4 col-md-12 mb-5">
+
+                        <!--Card-->
+                        <div class="card testimonial-card">
+
+                            <!--Background color-->
+                            <div class="card-up pink-gradient"></div>
+
+                            <!--Avatar-->
+                            <div class="avatar mx-auto white">
+                                <div class="person-image">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                            </div>
+
+                            <div class="card-body">
+                                <!--Name-->
+                                <h4 class="mt-1">
+                                    <strong>中学2年</strong>
+                                </h4>
+                                <hr>
+                                <!--Quotation-->
+                                <p class="dark-grey-text">
+                                プログラミングは難しかったけど、規則性があって楽しかったです。
+                                ゲームができた時の達成感が好きです。
+                                </p>
+                            </div>
+
+                        </div>
+                        <!--Card-->
+
+                    </div>
+                    <!--Grid column-->
+
+                    <!--Grid column-->
+                    <div class="col-lg-4 col-md-12 mb-5">
+
+                        <!--Card-->
+                        <div class="card testimonial-card">
+
+                            <!--Background color-->
+                            <div class="card-up pink-gradient">
+                            </div>
+
+                            <!--Avatar-->
+                            <div class="avatar mx-auto white">
+                                <div class="person-image">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                            </div>
+
+                            <div class="card-body">
+                                <!--Name-->
+                                <h4 class="mt-1">
+                                    <strong>中学3年</strong>
+                                </h4>
+                                <hr>
+                                <!--Quotation-->
+                                <p class="dark-grey-text">
+                                オンライン学習を始めたころは、学校とは違うのでちょっと難しい印象でした。
+                                続けていくと次第にオンラインの授業にも慣れて、プログラミングが楽しくなりました。
+                                </p>
+                            </div>
+
+                        </div>
+                        <!--Card-->
+
+                    </div>
+                    <!--Grid column-->
+
+                    <!--Grid column-->
+                    <div class="col-lg-4 col-md-12 mb-5">
+
+                        <!--Card-->
+                        <div class="card testimonial-card">
+
+                            <!--Background color-->
+                            <div class="card-up  pink-gradient"></div>
+
+                            <!--Avatar-->
+                            <div class="avatar mx-auto white">
+                                <div class="person-image">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                            </div>
+
+                            <div class="card-body">
+                                <!--Name-->
+                                <h4 class="mt-1">
+                                    <strong>中学2年</strong>
+                                </h4>
+                                <hr>
+                                <!--Quotation-->
+                                <p class="dark-grey-text">
+                                初めてテキストプログラミングをしました。初めは、難しかったけど、
+                                徐々にわかってきてゲームを完成させることができ、うれしかったです。
+                                </p>
+                            </div>
+
+                        </div>
+                        <!--Card-->
+
+                    </div>
+                    <!--Grid column-->
+
+                </div>
+
+            </section>
+            <!-- Section: Team v.1 -->
+
+        </div>
+
+        <!-- Streak -->
+        <div class="streak streak-photo streak-md streak-contact" id="download">
+            <div class="flex-center mask rgba-gradient">
+                <div class="container my-5">
+                    <!--Section heading-->
+                    <h2 class="font-weight-bold pb-3 wow fadeIn text-center white-text" data-wow-delay="0.2s">
+                        <strong>Contact</strong>
+                    </h2>
+                    <!-- Section sescription -->
+                    <h5 class="white-text w-responsive mx-auto mb-5 wow fadeIn text-center" data-wow-delay="0.2s">
+                        お問い合わせ
+                    </h5>
+                    <!--First row-->
+                    <div class="row flex-center">
+                        <a class="btn btn-white btn-rounded btn-lg orange-text font-weight-bold ml-0 wow fadeIn mr-4" data-wow-delay="0.2s" href="https://codeofgenius.net/contact">
+                            <i class="fas fa-envelope pr-2"></i>お問い合わせ
+                        </a>
+                        <a class="btn btn-white btn-rounded btn-lg orange-text font-weight-bold ml-0 wow fadeIn" data-wow-delay="0.2s" href="tel:050-3138-2090">
+                            <i class="fas fa-phone pr-2"></i>電話
+                        </a>
+                    </div>
+                    <!--First row-->
+                </div>
+            </div>
+        </div>
+        <!-- Streak -->
+
+        <!-- Section: Partners -->
+        <section>
+            <!-- Section heading -->
+            <h3 class="text-center title mt-5 pt-4 mb-4 dark-grey-text font-weight-bold wow fadeIn" data-wow-delay="0.2s">
+                <strong>Method</strong>
+            </h3>
+            <!-- Section sescription -->
+            <!-- Section sescription -->
+            <h4 class="grey-text w-responsive mx-auto mb-5 wow fadeIn text-center" data-wow-delay="0.2s">
+                コードオブジーニアスでは、以下のような学習ツールを利用します
+            </h4>
+            
+            <div class="container-fluid" style="background-color: #f4f4fa;">
+                <div class="container py-5">
+                    <!--Items wrapper-->
+                    <div class="flex-center">
+                        <!--First row-->
+                        <div class="row logos-panel mb-2 wow fadeIn" data-wow-delay="0.4s">
+                            <!--First column-->
+                            <div class="col-sm-6 col-md-3 flex-center">
+                                <img src="https://codeofgenius.net/wp-content/uploads/tool_zoom.jpg" class="img-fluid">
+                            </div>
+                            <!--/First column-->
+
+                            <!--Second column-->
+                            <div class="col-sm-6 col-md-3 flex-center">
+                                <img src="https://codeofgenius.net/wp-content/uploads/tool_aws02.jpg" class="img-fluid">
+                            </div>
+                            <!--/Second column-->
+
+                            <!--Third column-->
+                            <div class="col-sm-6 col-md-3 flex-center">
+                                <img src="https://codeofgenius.net/wp-content/uploads/tool_laplas.jpg" class="img-fluid">
+                            </div>
+                            <!--/Third column-->
+
+                            <!--Fourth column-->
+                            <div class="col-sm-6 col-md-3 flex-center">
+                                <img src="https://codeofgenius.net/wp-content/uploads/tool_github02.jpg" class="img-fluid">
+                            </div>
+                            <!--/Fourth column-->
+                        </div>
+                        <!--/First row-->
+                    </div>
+                    <!--/Items wrapper-->
+                </div>
+            </div>
+        </section>
+        <!-- Section: Partners -->
+
+    </main>
+    <!-- Main content -->
+
+    <!--Footer-->
+    <footer class="page-footer text-center text-md-left unique-color-dark pt-0 mt-0">
+        <div style="background-color: #f95169;">
+            <div class="container">
+
+                <!--Grid row-->
+                <div class="row py-4 d-flex align-items-center">
+
+                    <!--Grid column-->
+                    <div class="col-md-6 col-lg-5 text-center text-md-left mb-md-0">
+                        <h6 class="mb-0 white-text">Programming & Vision</h6>
+                    </div>
+                    <!--Grid column-->
+
+                    <!--Grid column-->
+                    <div class="col-md-6 col-lg-7 text-center text-md-right">
+                        <!--Twitter-->
+                        <a class="p-2 m-2 fa-lg tw-ic" href="https://twitter.com/codeofgenius">
+                            <i class="fab fa-twitter white-text mr-lg-4"> </i>
+                        </a>
+                        <!--Github-->
+                        <a class="p-2 m-2 fa-lg tw-ic" href="https://github.com/programmingkids/">
+                            <i class="fab fa-github white-text mr-lg-4"></i>
+                        </a>
+                        <!-- Cloud -->
+                        <a class="p-2 m-2 fa-lg tw-ic" href="https://laplace.programmingkids.net/">
+                            <i class="fas fa-cloud white-text mr-lg-4"> </i>
+                        </a>
+                    </div>
+                    <!--Grid column-->
+                </div>
+                <!--Grid row-->
+            </div>
+        </div>
+        <!--Footer Links-->
+        <div class="container mt-5 mb-4 text-center text-md-left">
+            <div class="row mt-3">
+                <!--First column-->
+                <div class="col-md-3 col-lg-4 col-xl-4 mb-5">
+                    <h6 class="spacing font-weight-bold">
+                        <strong>コードオブジーニアス</strong>
+                    </h6>
+                    <hr class="pink accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+                    <p>
+                        <a href="https://codeofgenius.net/termsofservice">利用規約</a>
+                    </p>
+                    <p>
+                        <a href="https://codeofgenius.net/company">運営会社</a>
+                    </p>
+                    <p>
+                        <a href="https://codeofgenius.net/camp/faq">よくある質問</a>
+                    </p>
+                    <p>
+                        <a href="https://codeofgenius.net/learning">学習用リンク</a>
+                    </p>
+                    <p>
+                        <a href="https://codeofgenius.net/csrcontact">学校、自治体、企業の方</a>
+                    </p>
+                </div>
+                <!--/.First column-->
+
+                <!--Second column-->
+                <div class="col-md-3 col-lg-4 col-xl-4 mx-auto mb-5">
+                    <h6 class="spacing font-weight-bold">
+                        <strong>コース</strong>
+                    </h6>
+                    <hr class="pink accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+                    <p>
+                        <a href="https://codeofgenius.net/online">スタンダード</a>
+                    </p>
+                    <p>
+                        <a href="https://codeofgenius.net/master">マスター</a>
+                    </p>
+                    <p>
+                        <a href="https://codeofgenius.net/camp">キャンプ</a>
+                    </p>
+                    <p>
+                        <a href="https://codeofgenius.net/event">イベント</a>
+                    </p>
+                    <p>
+                        <a href="https://codeofgenius.net/category/news/event">イベント一覧</a>
+                    </p>
+                </div>
+                <!--/.Second column-->
+
+                <!--Third column-->
+                <div class="col-md-3 col-lg-4 col-xl-4 mx-auto mb-5">
+                    <h6 class="spacing font-weight-bold">
+                        <strong>関連サイト</strong>
+                    </h6>
+                    <hr class="pink accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+                    <p>
+                        <a href="https://no1s.biz/">株式会社ナンバーワンソリューションズ</a>
+                    </p>
+                    <p>
+                        <a href="https://stemclub.jp/">すてむくらぶ</a>
+                    </p>
+                    <p>
+                        <a href="https://programmingkids.net/">プログラミングキッズ</a>
+                    </p>
+                    <p>
+                        <a href="https://smakids.com/">スマートキッズイングリッシュ</a>
+                    </p>
+                </div>
+                <!--/.Third column-->
+            </div>
+        </div>
+        <!--/.Footer Links-->
+
+        <!-- Copyright-->
+        <div class="footer-copyright text-center py-3">
+            <div class="container-fluid">
+                Copyright 2022 © <a href="https://codeofgenius.net/">中学生、高校生向けプログラミングスクールのコードオブジーニアス</a> All Rights Reserved.
+            </div>
+        </div>
+        <!--/.Copyright -->
+    </footer>
+    <!--/.Footer-->
+
+    <!-- JQuery -->
+    <script type="text/javascript" src="./mdb/js/jquery-3.3.1.min.js?ver=2"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="./mdb/js/popper.min.js?ver=2"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="./mdb/js/bootstrap.min.js?ver=2"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="./mdb/js/mdb.min.js?ver=2"></script>
+    <script>
+        //Animation init
+        new WOW().init();
+
+        // Material Select Initialization
+        $(document).ready(function () {
+            $('.mdb-select').material_select();
+        });
+    </script>
+    <script src="work12.js"></script>
+</body>
+</html>
